@@ -14,6 +14,8 @@ import { LoginComponent } from "./login.component";
 
 import { BarcodeScanner } from 'nativescript-barcodescanner';
 
+import { Data } from "./shared/providers/data";
+
 @NgModule({
     bootstrap: [
         AppComponent
@@ -31,7 +33,8 @@ import { BarcodeScanner } from 'nativescript-barcodescanner';
     ],
     providers: [
         { provide: NgModuleFactoryLoader, useClass: NSModuleFactoryLoader },
-        BarcodeScanner
+        BarcodeScanner,
+        Data
     ],
     schemas: [
         NO_ERRORS_SCHEMA

@@ -10,13 +10,15 @@ import { Page } from "ui/page";
 import { TextField } from "ui/text-field";
 import { Label } from "ui/label";
 
+import { Data } from "./shared/providers/data";
+
 @Component({
     selector: "kthb-login",
     templateUrl: "login.component.html",
     providers: [MyHttpGetService]
 })
 export class LoginComponent {
-    public webViewSrc: string = "https://apps.lib.kth.se/jwt/jwttokenkthcas_app.php?returl=https://apps.lib.kth.se/jwt/callback.php";
+    public webViewSrc: string = "";
     @ViewChild("myWebView") webViewRef: ElementRef;
     @ViewChild("urlField") urlFieldRef: ElementRef;
     @ViewChild("labelResult") labelResultRef: ElementRef;
@@ -27,7 +29,8 @@ export class LoginComponent {
     
     constructor(private router: RouterExtensions, 
         private myGetService: MyHttpGetService,
-        private ngZone: NgZone
+        private ngZone: NgZone,
+        private data: Data
     ) {
         this.input = {
             "kthid": "tholind",
@@ -96,6 +99,12 @@ export class LoginComponent {
     }
 
     ngOnInit() {
+        if (this.data.storage) {
+            console.log(this.data.storage.logout);
+            this.webViewSrc = "https://apps.lib.kth.se/jwt/jwttokenkthcas_logout.php?returl=https://apps.lib.kth.se/jwt/callback.php"
+        } else {
+            this.webViewSrc = "https://apps.lib.kth.se/jwt/jwttokenkthcas_app.php?returl=https://apps.lib.kth.se/jwt/callback.php";
+        }
         /*
         console.log("login_nginit");
         if (typeof applicationSettingsModule.getString('jwttoken') !== "undefined") {

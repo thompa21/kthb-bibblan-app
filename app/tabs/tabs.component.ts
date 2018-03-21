@@ -4,6 +4,8 @@ import { SelectedIndexChangedEventData, TabView, TabViewItem } from "tns-core-mo
 import * as applicationSettingsModule from "application-settings";
 import { RouterExtensions } from "nativescript-angular/router";
 
+import { Data } from "../shared/providers/data";
+
 @Component({
     selector: "TabsComponent",
     moduleId: module.id,
@@ -14,7 +16,11 @@ export class TabsComponent implements OnInit {
 
     private _title: string;
 
-    constructor(private router: RouterExtensions) {
+    constructor
+    (
+        private router: RouterExtensions,
+        private data: Data
+    ) {
         /* ***********************************************************
         * Use the constructor to inject app services that will be needed for
         * the whole tab navigation layout as a whole.
@@ -32,6 +38,9 @@ export class TabsComponent implements OnInit {
     public logout() {
         console.log("logout");
         applicationSettingsModule.remove('jwttoken');
+        this.data.storage = {
+            "logout": "true"
+        }
         this.router.navigate([""],{ clearHistory: true });
     }
 

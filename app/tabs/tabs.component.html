@@ -4,7 +4,7 @@
     </StackLayout>
     <ActionItem (tap)="logout()" 
         ios.systemIcon="16" ios.position="right"
-        text="cbkckjLogout" android.position="popup"></ActionItem>
+        text="Logout" android.position="popup"></ActionItem>
 </ActionBar>
 <TabView (selectedIndexChanged)="onSelectedIndexChanged($event)">
     <StackLayout class="tabitem" *tabItem="{title: 'My Account', iconSource: getIconSource('home')}">

@@ -1,0 +1,11 @@
+@import 'tabs.component';
+
+// Place any CSS rules you want to apply only on Android here
+TabView {
+    tab-text-color: rgb(0, 110, 255);
+    selected-tab-text-color: blue;
+    android-selected-tab-text-color: blue;
+    android-selected-tab-highlight-color: green;
+    font-size: 12;
+}
+

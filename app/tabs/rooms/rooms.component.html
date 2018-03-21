@@ -1,0 +1,62 @@
+<!--StackLayout *ngFor="let item of rooms">
+    <Label [text]="item.roomname"></Label> 
+</StackLayout-->
+<GridLayout columns="*,*,*,*," rows="auto, *">
+    <GridLayout class="header-container" colSpan="5" columns="*,*,*">
+        <Button text="Föreg." horizontalAlignment="left" verticalAlignment="center" (tap)="getprevdata()" class=""></Button>
+        <Label id="textFieldBDate" text='{{bookingDate | date:"yyyy-MM-dd"}}' colSpan="5" horizontalAlignment="center" verticalAlignment="center" (tap)="showDatePicker()" class="btn"></Label> 
+        <Button text="Nästa" col="4" horizontalAlignment="right" verticalAlignment="center" (tap)="getnextdata()" class=""></Button>
+    </GridLayout>
+    <StackLayout #dragwrapper id="pagewrapper" colSpan="5" row="1">
+        <ListView  [visibility]="isItemVisible ? 'collapsed' : 'visible'" [items]="roomList">
+            <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
+                <StackLayout orientation="horizontal" [class.odd]="odd" [class.even]="even">
+                    <!--StackLayout width="100%" style="padding: 0 5;">
+                        <Image src="~/images/{{item.roomname}}.jpg" ></Image>
+                    </StackLayout-->
+                    <StackLayout width="100%" style="margin: 0;padding: 5 5;">
+                        <StackLayout orientation="horizontal">
+                            <StackLayout>
+                                <!--Label [text]='"index: " + i'></Label-->
+                                <StackLayout orientation="horizontal">
+                                    <Label style="font-size: 16;font-weight:bold" textWrap="true" class="listlabel" [text]="item.roomnumber"></Label>
+                                    <Label style="font-size: 16;font-weight:bold" textWrap="true" class="listlabel" [text]="item.roomname"></Label>
+                                </StackLayout>
+                                <Label textWrap="true" class="listlabel" text="10 platser"></Label>
+                            </StackLayout>
+                        </StackLayout>
+                        <StackLayout orientation="horizontal">
+                            <Label (tap)="createbooking(item.hour_06_bookingid)" class="hourgrid {{item.hour_06_status}}" text="06"></Label>
+                            <Label (tap)="createbooking(item.hour_07_bookingid)" class="hourgrid {{item.hour_07_status}}" text="07"></Label>
+                            <Label (tap)="createbooking(item.hour_08_bookingid)" class="hourgrid {{item.hour_08_status}}" text="08"></Label>
+                            <Label (tap)="createbooking(item.hour_09_bookingid)" class="hourgrid {{item.hour_09_status}}" text="09"></Label>
+                            <Label (tap)="createbooking(item.hour_10_bookingid)" class="hourgrid {{item.hour_10_status}}" text="10"></Label>
+                            <Label (tap)="createbooking(item.hour_11_bookingid)" class="hourgrid {{item.hour_11_status}}" text="11"></Label>
+                            <Label (tap)="createbooking(item.hour_12_bookingid)" class="hourgrid {{item.hour_12_status}}" text="12"></Label>
+                            <Label (tap)="createbooking(item.hour_13_bookingid)" class="hourgrid {{item.hour_13_status}}" text="13"></Label>
+                            </StackLayout>
+                        <StackLayout orientation="horizontal">
+                            <Label (tap)="createbooking(item.hour_14_bookingid)" class="hourgrid {{item.hour_14_status}}" text="14"></Label>
+                            <Label (tap)="createbooking(item.hour_15_bookingid)" class="hourgrid {{item.hour_15_status}}" text="15"></Label>                               
+                            <Label (tap)="createbooking(item.hour_16_bookingid)" class="hourgrid {{item.hour_16_status}}" text="16"></Label>
+                            <Label (tap)="createbooking(item.hour_17_bookingid)" class="hourgrid {{item.hour_17_status}}" text="17"></Label>
+                            <Label (tap)="createbooking(item.hour_18_bookingid)" class="hourgrid {{item.hour_18_status}}" text="18"></Label>
+                            <Label (tap)="createbooking(item.hour_19_bookingid)" class="hourgrid {{item.hour_19_status}}" text="19"></Label>
+                            <Label (tap)="createbooking(item.hour_20_bookingid)" class="hourgrid {{item.hour_20_status}}" text="20"></Label>
+                            <Label (tap)="createbooking(item.hour_21_bookingid)" class="hourgrid {{item.hour_21_status}}" text="21"></Label>                               
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>  
+            </ng-template>
+        </ListView>
+    </StackLayout>
+    <!--ActivityIndicator row="1" #activityIndicator busy="true" [visibility]="isLoaderVisible ? 'visible' : 'collapsed'"  width="100" height="100" class="activity-indicator"></ActivityIndicator-->
+    <!--Image height="150%" width="150%" src="~/images/loader1.gif" #activityIndicator busy="true" [vsisibility]="isLoaderVisible ? 'visible' : 'collapsed'"  width="100" height="100" class="activity-indicator"></Image-->
+    <GridLayout colSpan="5" row="1" [visibility]="isLoaderVisible ? 'visible' : 'collapsed'">
+        <Label verticalAlignment="Center" horizontalAlignment="center" text="Loading..." #activityIndicator busy="true" width="100" height="100" class="btn"></Label>
+    </GridLayout>
+    <StackLayout colSpan="5" row="1" backgroundColor="white" [visibility]="isItemVisible ? 'visible' : 'collapsed'" row="0" col="0">
+        <DatePicker height="80% "width="80%" class="m-15" id="datePicker" #dp [visibility]="isItemVisible ? 'visible' : 'collapsed'"></DatePicker>
+        <!--Button class="btn-primary btn-active" text="Tap to enter the date" (tap)="enterDate()" [visibility]="isButtonVisible ? 'visible' : 'collapsed'"></Button-->
+    </StackLayout>
+</GridLayout>

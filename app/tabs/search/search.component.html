@@ -1,0 +1,17 @@
+<!--StackLayout class="pagepadding" *ngIf="myUserLoans">
+    <StackLayout *ngFor="let item of myUserLoans.item_loan">
+        <Label [text]="item.title"></Label> 
+    </StackLayout>
+</StackLayout-->
+
+<GridLayout class="pagepadding" exampleTitle toggleNavButton *ngIf="myUserLoans">
+    <ListView [items]=" myUserLoans.item_loan">
+      <ng-template tkListItemTemplate let-item="item">
+        <StackLayout orientation="vertical">
+          <Label class="nameLabel" [text]="item.title"></Label>
+          <Label class="descriptionLabel" [text]="item.author"></Label>
+          <Label class="descriptionLabel" [text]="item.due_date"></Label>
+        </StackLayout>
+      </ng-template>
+    </ListView>
+</GridLayout>

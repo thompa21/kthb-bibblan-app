@@ -1,0 +1,30 @@
+// Import app variables
+@import 'app-variables';
+
+// Import the theme’s main ruleset - both index and platform specific.
+@import '~nativescript-theme-core/scss/index';
+@import '~nativescript-theme-core/scss/platforms/index.ios';
+
+// Import common styles
+@import 'app-common';
+
+// Place any CSS rules you want to apply only on iOS here
+Button {
+    border-width: 1;
+    border-style: solid;
+    border-color: #034793;
+    border-radius: 2;
+}
+TextField {
+    background-color: #FAFAFA;
+    border-width: 1;
+    border-style: solid;
+    border-color: #C7C7CC;
+    border-radius: 2;
+}
+.link {
+    border-width: 0;
+}
+.hourgrid {
+    width: 90px;
+}

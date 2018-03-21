@@ -1,0 +1,27 @@
+
+<GridLayout backgroundColor="#CCCCCC">
+    <ScrollView>
+        <StackLayout margin="10" verticalAlignment="center">
+            <StackLayout class="form" padding="15" backgroundColor="#FFFFFF">
+                <StackLayout colSpan="5" row="0">
+                    <Button text="Scan Barcode." horizontalAlignment="left" verticalAlignment="center" (tap)="scan()" class=""></Button>
+                </StackLayout>
+                <StackLayout colSpan="5" row="1">
+                    <Button text="Enable RFID" horizontalAlignment="left" verticalAlignment="center" (tap)="doStartTagListener()" class=""></Button>
+                    <Button text="Disable RFID" horizontalAlignment="left" verticalAlignment="center" (tap)="doStopTagListener()" class=""></Button>
+                </StackLayout>
+                <StackLayout colSpan="5" row="2">
+                    <Label [text]="barcodeformat"></Label>  
+                    <Label [text]="barcode"></Label>
+                </StackLayout>
+                <StackLayout colSpan="5" row="3" *ngIf="almaitem">
+                    <Label [text]="almaitem.bib_data.title"></Label>  
+                    <Label [text]="almaitem.bib_data.isbn"></Label>
+                    <Label [text]="almaitem.holding_data.call_number"></Label>
+                    <Label [text]="almaitem.item_data.policy"></Label>
+                    <Label [text]="almaitem.item_data.location"></Label>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</GridLayout>

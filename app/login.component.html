@@ -1,0 +1,29 @@
+<!--ActionBar title="KTHB Grupprum" class="action-bar">
+    <StackLayout orientation="horizontal" ios:horizontalAlignment="center" android:horizontalAlignment="left">
+        <Label text="KTHB Grupprum Login"></Label>
+    </StackLayout>
+</ActionBar-->
+
+
+<!--StackLayout class="p-20">
+    <StackLayout class="btn-img"  orientation="horizontal" padding="5" visibility="{{ loggedin ? 'collapsed' : 'visible' }}" >
+        <StackLayout class="form" padding="15" backgroundColor="#FFFFFF">
+            <StackLayout class="input-field">
+                <Label text="KTHID" class="label font-weight-bold m-b-5"></Label>
+                <TextField class="input" [(ngModel)]="input.kthid"></TextField>
+                <StackLayout class="hr-light"></StackLayout>
+            </StackLayout>
+            <StackLayout class="input-field">
+                <Label text="Pin" class="label font-weight-bold m-b-5"></Label>
+                <TextField secure="true" class="input" [(ngModel)]="input.pin"></TextField>
+                <StackLayout class="hr-light"></StackLayout>
+            </StackLayout>
+            <Button class="btn btn-primary w-full" text="Login" (tap)="login()"></Button>
+            <Label [nsRouterLink]="['/register']" text="Register here." class="text-center footnote"></Label>
+        </StackLayout>
+    </StackLayout>
+</StackLayout-->
+<GridLayout rows="75 * 50" sdkExampleTitle sdkToggleNavButton>
+    <WebView row="1" #myWebView [src]="webViewSrc"></WebView>
+    <Label row="2" #labelResult></Label>
+</GridLayout>

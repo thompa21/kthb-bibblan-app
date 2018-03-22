@@ -25,12 +25,22 @@ export class SearchComponent implements OnInit {
 
     ngOnInit(): void {
         console.log("SEARCH oninit");
-        this.myService.getAlmaUserLoans(applicationSettingsModule.getString('alma_primaryid'))
-        .subscribe((result) => {
-            this.onGetDataSuccess(result)
-        }, (error) => {
-            this.onGetDataError(error)
-        });
+        //Hämta information från token
+        this.myService.getuser()
+            .subscribe(
+                (result) => {
+                    console.dir(result);
+                    applicationSettingsModule.setString('alma_primaryid', result.data.userId)
+                    this.myService.getAlmaUserLoans(applicationSettingsModule.getString('alma_primaryid'))
+                        .subscribe((result) => {
+                            this.onGetDataSuccess(result)
+                        }, (error) => {
+                            this.onGetDataError(error)
+                        });
+                }, 
+                (error) => {
+                    console.log(error);
+                });
     }
 
     private onGetDataSuccess(res) {

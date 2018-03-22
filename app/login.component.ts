@@ -93,6 +93,7 @@ export class LoginComponent {
             if(args.url.indexOf("https://login.kth.se/logout")!==-1) {
                 console.log("Utloggad!");
                 applicationSettingsModule.remove('jwttoken');
+                applicationSettingsModule.remove('alma_primaryid');
                 //Skicka till login
                 that.loggedin = false;
                 that.gotologin();

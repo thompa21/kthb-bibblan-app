@@ -44,16 +44,22 @@ export class HomeComponent implements OnInit {
     ngOnInit(): void {
         console.log("HOME oninit");
         this.user.email = "KALLE";
-        this.myService.getAlmaUser(applicationSettingsModule.getString('alma_primaryid'))
-        .subscribe((result) => {
-            this.onGetDataSuccess(result)
-        }, (error) => {
-            this.onGetDataError(error)
-        });
-    }
-
-    private setkalla() {
-        this.user.email = "KALLE ANKA";
+        //Hämta information från token
+        this.myService.getuser()
+            .subscribe(
+                (result) => {
+                    console.dir(result);
+                    applicationSettingsModule.setString('alma_primaryid', result.data.userId)
+                    this.myService.getAlmaUser(applicationSettingsModule.getString('alma_primaryid'))
+                        .subscribe((result) => {
+                            this.onGetDataSuccess(result)
+                        }, (error) => {
+                            this.onGetDataError(error)
+                        });
+                }, 
+                (error) => {
+                    console.log(error);
+                });        
     }
 
     private onGetDataSuccess(res) {

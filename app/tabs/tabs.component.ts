@@ -37,16 +37,6 @@ export class TabsComponent implements OnInit {
         * navigation layout as a whole.
         *************************************************************/
        console.log('TabsComponent ngOnInit');
-       //Hämta information från token
-       this.myGetService.getuser()
-       .subscribe(
-           (result) => {
-               console.dir(result);
-               applicationSettingsModule.setString('alma_primaryid', result.data.userId)
-           }, 
-           (error) => {
-               console.log(error);
-           });
 
     }
 

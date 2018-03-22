@@ -6,11 +6,14 @@ import { RouterExtensions } from "nativescript-angular/router";
 
 import { Data } from "../shared/providers/data";
 
+import { MyHttpGetService } from "../shared/MyHttpGetService/http-get.services";
+
 @Component({
     selector: "TabsComponent",
     moduleId: module.id,
     templateUrl: "./tabs.component.html",
-    styleUrls: ["./tabs.component.css"]
+    styleUrls: ["./tabs.component.css"],
+    providers: [MyHttpGetService]
 })
 export class TabsComponent implements OnInit {
 
@@ -19,7 +22,8 @@ export class TabsComponent implements OnInit {
     constructor
     (
         private router: RouterExtensions,
-        private data: Data
+        private data: Data,
+        private myGetService: MyHttpGetService
     ) {
         /* ***********************************************************
         * Use the constructor to inject app services that will be needed for
@@ -33,6 +37,17 @@ export class TabsComponent implements OnInit {
         * navigation layout as a whole.
         *************************************************************/
        console.log('TabsComponent ngOnInit');
+       //Hämta information från token
+       this.myGetService.getuser()
+       .subscribe(
+           (result) => {
+               console.dir(result);
+               applicationSettingsModule.setString('alma_primaryid', result.data.userId)
+           }, 
+           (error) => {
+               console.log(error);
+           });
+
     }
 
     public logout() {

@@ -56,16 +56,24 @@ export class LoginComponent {
         });
     }
 
+    public gotologin() {
+        console.log('gotologin');
+        //Inom ngZone för att vyn ska uppdateras
+        this.ngZone.run(() => {
+            this.router.navigate([""],{ clearHistory: true })
+        });
+    }
+
     ngAfterViewInit() {
         //this.router.navigate(["home"],{ clearHistory: true })
         let webview: WebView = this.webViewRef.nativeElement;
         let label: Label = this.labelResultRef.nativeElement;
-        label.text = "WebView is still loading...";
+        //label.text = "Loading...";
         var that = this;
         webview.on(WebView.loadFinishedEvent,  function (args: LoadEventData) {
             let message;
             if (!args.error) {
-                message = "WebView finished loading of " + args.url;
+                //message = "WebView finished loading of " + args.url;
             } else {
                 message = "Error loading " + args.url + ": " + args.error;
             }
@@ -74,36 +82,59 @@ export class LoginComponent {
             var jwttoken = that.getParameterByName('jwttoken',args.url);
             if(jwttoken!="" && jwttoken!= null){
                 console.log("jwttoken erhållen: " + jwttoken );
+                //Spara token
                 applicationSettingsModule.setString('jwttoken', jwttoken);
-                //TODO redirect to application
+                
+                //Skicka till applikation
                 that.loggedin = true;
                 that.gotoapplication();
+            }
+
+            if(args.url.indexOf("https://login.kth.se/logout")!==-1) {
+                console.log("Utloggad!");
+                applicationSettingsModule.remove('jwttoken');
+                //Skicka till login
+                that.loggedin = false;
+                that.gotologin();
             }
         });
     }
 
     login() {
-        console.log(this.input.kthid);
-        if(this.input.kthid && this.input.pin) {
-            console.log("login user pw ok");
-            this.myGetService.getjwttoken(this.input.kthid + "@kth.se", this.input.pin)
-            .subscribe((result) => {
-                applicationSettingsModule.setString('jwttoken', result["jwt"]);
-                applicationSettingsModule.setString('alma_primaryid', this.input.kthid + "@kth.se");
-                this.loggedin = true;
-                this.router.navigate(["/tabs"],{ clearHistory: true })
-            }, (error) => {
-                console.log(error);
-            });
-        }
+        //let textField: TextField = this.urlFieldRef.nativeElement;
+
+            this.loggedin = true;
+            this.webViewSrc = "https://apps.lib.kth.se/jwt/jwttokenkthcas_app.php?returl=https://apps.lib.kth.se/jwt/callback.php";
     }
 
     ngOnInit() {
+        if (applicationSettingsModule.getString('jwttoken', 'unset') !== 'unset'){
+            this.myGetService.checkJWT()
+            .subscribe(
+                (result) => {
+                if(result.authorized) {
+                    this.loggedin = true;
+                    this.gotoapplication();
+                } else {
+                    this.loggedin = false;
+                    this.webViewSrc = "https://apps.lib.kth.se/jwt/jwttokenkthcas_app_logout.php?returl=https://apps.lib.kth.se/jwt/callback.php"
+                }
+            }, (error) => {
+                console.log(error);
+                this.loggedin = false;
+                this.webViewSrc = "https://apps.lib.kth.se/jwt/jwttokenkthcas_app_logout.php?returl=https://apps.lib.kth.se/jwt/callback.php"
+            });
+        }
+        //Skicka till KTH logout om storage är satt
         if (this.data.storage) {
+            this.loggedin = false;
             console.log(this.data.storage.logout);
-            this.webViewSrc = "https://apps.lib.kth.se/jwt/jwttokenkthcas_logout.php?returl=https://apps.lib.kth.se/jwt/callback.php"
+            this.data.storage.length = 0;
+            this.webViewSrc = "https://apps.lib.kth.se/jwt/jwttokenkthcas_app_logout.php?returl=https://apps.lib.kth.se/jwt/callback.php"
+            
         } else {
-            this.webViewSrc = "https://apps.lib.kth.se/jwt/jwttokenkthcas_app.php?returl=https://apps.lib.kth.se/jwt/callback.php";
+            //this.loggedin = true;
+            //this.webViewSrc = "https://apps.lib.kth.se/jwt/jwttokenkthcas_app.php?returl=https://apps.lib.kth.se/jwt/callback.php";
         }
         /*
         console.log("login_nginit");

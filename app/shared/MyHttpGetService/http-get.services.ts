@@ -59,8 +59,6 @@ export class MyHttpGetService {
     }
 
     getRoomsforarea(areaid: number): RxObservable<any[]> {
-         //gammalt api
-        //const url = `${this.roomsUrl}/rooms/${areaid}`;
         //lumen API
         //TODO hämta jwttoken
         const url = `${this.webserviceUrl}mrbs/api/v1/rooms/?area_id=${areaid}&token=${applicationSettingsModule.getString('jwttoken')}`;
@@ -77,6 +75,20 @@ export class MyHttpGetService {
         params.set("password", password);
         let options = new RequestOptions({ headers: headers, search: params });
         return this.http.get("https://apps.lib.kth.se/jwt/jwttokenalma.php", options)
+            .map(res => res.json())
+    }
+
+    checkJWT() {
+        const url = `${this.webserviceUrl}mrbs/api/v1/checkjwt/?token=${applicationSettingsModule.getString('jwttoken')}`;
+        console.log("url: " + url);
+        return this.http.get(url)
+            .map(res => res.json())
+    }
+
+    getuser() {
+        const url = `${this.webserviceUrl}mrbs/api/v1/getuserfromtoken/?token=${applicationSettingsModule.getString('jwttoken')}`;
+        console.log("url: " + url);
+        return this.http.get(url)
             .map(res => res.json())
     }
 

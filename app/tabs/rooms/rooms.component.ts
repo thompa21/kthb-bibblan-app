@@ -148,7 +148,7 @@ export class RoomsComponent implements OnInit {
         .subscribe(
             (result) => {
             this.rooms= result;
-            console.dir(result)
+            //console.dir(result)
         }, (error) => {
             console.log(error);
         });
@@ -219,7 +219,7 @@ export class RoomsComponent implements OnInit {
     }
 
     public logout() {
-        console.log("logout");
+        console.log("logout from room");
         applicationSettingsModule.remove('jwttoken');
         this.router.navigate([""],{ clearHistory: true });
     }

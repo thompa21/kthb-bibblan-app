@@ -8,7 +8,7 @@
 android {  
   defaultConfig {  
     generatedDensities = []
-    applicationId = "se.kth.lib.KTHB"  
+    applicationId = "se.kth.lib.libraryservices"  
   }  
   aaptOptions {  
     additionalParameters "--no-version-vectors"  

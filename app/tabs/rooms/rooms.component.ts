@@ -118,6 +118,7 @@ export class RoomsComponent implements OnInit {
             this.isLoaderVisible = true;
         //}
         var bookingdate = (this.bookingDate.getFullYear() + "-" + ('0' + (this.bookingDate.getMonth() + 1)).slice(-2) + "-" + ('0' + this.bookingDate.getDate()).slice(-2));
+        console.log(bookingdate);
         this.myService.getData(bookingdate)
             .subscribe(
                 (result) => {

@@ -11,7 +11,7 @@ import { BarcodeScanner } from "nativescript-barcodescanner";
 
 import * as dialogs from "ui/dialogs";
 
-import { Nfc, NfcNdefData, NfcTagData } from "nativescript-nfc";
+//import { Nfc, NfcNdefData, NfcTagData } from "nativescript-nfc";
 
 @Component({
     selector: 'Scan',
@@ -24,14 +24,14 @@ import { Nfc, NfcNdefData, NfcTagData } from "nativescript-nfc";
 
 export class ScanComponent implements OnInit {
 
-    private nfc: Nfc
+    //private nfc: Nfc
     private almaitem: ObservableArray<Array<any>>
     constructor(
         private myService: MyHttpGetService,
         private barcodeScanner: BarcodeScanner,
         private ngZone: NgZone
     ) {
-        this.nfc = new Nfc();           
+        //this.nfc = new Nfc();           
     }
     barcodeformat: string;
     barcode: string;
@@ -39,9 +39,9 @@ export class ScanComponent implements OnInit {
     
 
     ngOnInit(): void {
-        this.doStartTagListener();
+        //this.doStartTagListener();
     }
-    
+    /*
     writetag(){
         this.nfc.writeTag({
             textRecords: [
@@ -60,7 +60,7 @@ export class ScanComponent implements OnInit {
             alert(err);
         });
     }
-
+*/
     scan() {
         this.barcodeScanner.scan({
             formats:"QR_CODE, EAN_13",
@@ -101,6 +101,7 @@ export class ScanComponent implements OnInit {
           );
     }
     
+    /*
     public doStartTagListener() {
         if(this.almaitem){
             console.dir(this.almaitem);
@@ -149,7 +150,7 @@ export class ScanComponent implements OnInit {
         });
         const that = this;
     }
-
+*/
     private onGetDataSuccess(res) {
         this.almaitem = res;
         console.dir(this.almaitem);

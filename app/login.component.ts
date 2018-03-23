@@ -109,6 +109,7 @@ export class LoginComponent {
     }
 
     ngOnInit() {
+        console.log('appsetings:  ' + applicationSettingsModule.getString('jwttoken', 'unset'));
         if (applicationSettingsModule.getString('jwttoken', 'unset') !== 'unset'){
             this.myGetService.checkJWT()
             .subscribe(

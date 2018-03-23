@@ -24,7 +24,7 @@ export class MyHttpGetService {
         params.set("bookingdate", bookingdate);
         let options = new RequestOptions({ headers: headers, search: params });
         //console.log(this.serverUrl + "bookings");
-        //console.dir(options);
+        console.dir(options);
         return this.http.get(this.serverUrl + "bookings", options)
             .map(res => res.json())
             //.catch(this.handleErrorObservable);
@@ -127,7 +127,7 @@ export class MyHttpGetService {
     private createRequestHeader() {
         let headers = new Headers();
         // set headers here e.g.
-        headers.append("Authorization", "Bearer " + applicationSettingsModule.getString('jwttoken'));
+        headers.append("Authkey", "Bearer " + applicationSettingsModule.getString('jwttoken'));
         headers.append("Content-Type", "application/json");
        
         return headers;

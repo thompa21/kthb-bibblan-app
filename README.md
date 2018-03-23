@@ -6,6 +6,6 @@ Vilka funktioner ska inkluderas?
 - Lånekonto
 - Lån
 - Scanna böcker
-- Gruppprum
+- Grupprum
 
 

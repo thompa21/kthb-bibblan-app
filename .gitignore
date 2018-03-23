@@ -3,4 +3,4 @@
 /platforms
 app/**/*.js
 app/**/*.map
-!/node_modules/nativescript-nfc
+!node_modules/nativescript-nfc
